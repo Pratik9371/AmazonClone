@@ -1,0 +1,90 @@
+.header {
+  display: flex;
+  background-color: #232f3e;
+  align-items: center;
+  color: white;
+  justify-content: space-around;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header__logo {
+  width: 100px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.header__locationIcon {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.header__userAddrress {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.header__search {
+  margin-left: 10px;
+  margin-right: 10px;
+  outline: none;
+  display: flex;
+  flex: 1;
+}
+
+.header__searchInput {
+  height: 12px;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.header_searchIcon {
+  background-color: #febd69;
+  color: black;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  height: 22px !important;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.header__nav {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.header__option {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: white;
+}
+
+.header__optionLineOne {
+  font-size: 10px;
+}
+
+.header__optionLineTwo {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.header__cart {
+  display: flex;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+}
