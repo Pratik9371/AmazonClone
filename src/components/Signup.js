@@ -4,7 +4,7 @@ import "./Signup.css";
 import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { loading } from "../actions/index";
+import { setLoading, setUser } from "../actions/index";
 
 const initialState = {
   name: "",
@@ -29,16 +29,15 @@ const Signup = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(loading(true));
+    dispatch(setLoading(true));
     axios
       .post(url, formData)
       .then((res) => {
-        dispatch(loading(false));
+        dispatch(setLoading(false));
         history.push("/");
       })
       .catch((error) => {
-        dispatch(loading(false));
+        dispatch(setLoading(false));
         console.log(error.message);
       });
   };

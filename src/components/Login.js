@@ -1,7 +1,84 @@
 import "./Login.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
+import { setLoading, setUser, setIsLoggedIn } from "../actions";
+
+const url = "https://localhost:44330/api/user/login";
+
+const initialState = {
+  emailError: "",
+  passwordError: "",
+};
 
 const Login = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(initialState);
+  const [loginError, setLoginError] = useState("");
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    const isValid = validate();
+    if (isValid) {
+      dispatch(setLoading(true));
+      const payload = {
+        email,
+        password,
+      };
+
+      //api call...
+      axios
+        .post(url, payload)
+        .then((res) => {
+          if (res.data) {
+            dispatch(setIsLoggedIn(true));
+            dispatch(setUser({ name: res.data.name, email: res.data.email }));
+            history.push("/");
+            dispatch(setLoading(false));
+          } else {
+            setLoginError("Incorrect email or password");
+            history.push("/login");
+            dispatch(setLoading(false));
+          }
+        })
+        .catch((error) => {
+          dispatch(setLoading(false));
+          console.log(error.message);
+        });
+    }
+  };
+
+  const validate = () => {
+    let emailError = "";
+    let passwordError = "";
+
+    if (email === "") {
+      emailError = "Email cannot be empty";
+    }
+
+    if (password === "") {
+      passwordError = "Password cannot be empty";
+    }
+
+    if (emailError || passwordError) {
+      setError({ emailError, passwordError });
+      return false;
+    }
+    return true;
+  };
+
   return (
     <div className="login">
       <Link to="/">
@@ -13,13 +90,20 @@ const Login = () => {
       </Link>
 
       <div className="login__container">
+        <div style={{ color: "red" }}>{loginError}</div>
         <h1>Sign-In</h1>
         <form>
           <h5>Email</h5>
-          <input type="email" />
+          <input type="email" onChange={handleEmailChange} />
+          <div style={{ color: "red" }}>{error.emailError}</div>
           <h5>Password</h5>
-          <input type="password" />
-          <button type="button" className="login__signInButton">
+          <input type="password" onChange={handlePasswordChange} />
+          <div style={{ color: "red" }}>{error.passwordError}</div>
+          <button
+            type="button"
+            className="login__signInButton"
+            onClick={handleSubmit}
+          >
             Sign In
           </button>
           <p>
@@ -29,7 +113,7 @@ const Login = () => {
           </p>
           <p>New to Amazon?</p>
           <Link to="/signup">
-            <button type="button" className="login__signUpButton">
+            <button type="submit" className="login__signUpButton">
               Create your Amazon account
             </button>
           </Link>

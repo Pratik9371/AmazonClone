@@ -3,8 +3,12 @@ import LocationIcon from "@material-ui/icons/LocationOnOutlined";
 import Cart from "@material-ui/icons/ShoppingCartOutlined";
 import "./Header.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const user = useSelector((state) => state.user.name);
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+
   return (
     <div className="header">
       <img
@@ -36,8 +40,12 @@ const Header = () => {
       <div className="header__nav">
         <Link to="/login">
           <div className="header__option">
-            <span className="header__optionLineOne">Hello, Sign in</span>
-            <span className="header__optionLineTwo">Guest</span>
+            <span className="header__optionLineOne">
+              Hello, {isLoggedIn ? null : "Sign in"}
+            </span>
+            <span className="header__optionLineTwo">
+              {isLoggedIn ? user : "Guest"}
+            </span>
           </div>
         </Link>
         <div className="header__option">

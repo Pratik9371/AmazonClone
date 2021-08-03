@@ -1,13 +1,20 @@
-export const loading = (result) => {
+export const setLoading = (result) => {
   return {
     type: "loading",
     payload: result,
   };
 };
 
-export const getUser = (result) => {
+export const setUser = (result) => {
   return {
-    type: "getuser",
+    type: "user",
+    payload: result,
+  };
+};
+
+export const setIsLoggedIn = (result) => {
+  return {
+    type: "isLoggedIn",
     payload: result,
   };
 };
