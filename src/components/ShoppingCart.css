@@ -1,0 +1,29 @@
+.cart > h1 {
+  padding-left: 20px;
+}
+
+.cart__container {
+  margin: 20px;
+  display: flex;
+  border: 0.5px solid #eee;
+  padding: 10px;
+}
+
+.cart__image {
+  padding: 10px;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.cart__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  margin-left: 20px;
+}
+
+.cart__header > h5 {
+  margin-bottom: 10px;
+}

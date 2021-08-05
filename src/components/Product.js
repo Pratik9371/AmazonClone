@@ -1,8 +1,37 @@
 import "./Product.css";
 import StarIcon from "@material-ui/icons/Star";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../actions";
 
-const Product = ({ name, price, rating, imageUrl }) => {
+const Product = ({ id, name, price, rating, imageUrl }) => {
+  const history = useHistory();
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const userId = useSelector((state) => state.user.id);
+  const isLoading = useSelector((state) => state.loading);
+
+  const addToCart = () => {
+    if (isLoggedIn) {
+      const payload = {
+        userID: userId,
+        productID: id,
+      };
+      axios
+        .post("https://localhost:44330/api/cart/add", payload)
+        .then((res) => {
+          alert("successfully added to cart");
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    } else {
+      alert("You need to login first");
+      history.push("/login");
+    }
+  };
   return (
     <div className="product">
       <img src={imageUrl} className="product__image" />
@@ -19,7 +48,7 @@ const Product = ({ name, price, rating, imageUrl }) => {
         </div>
       </div>
 
-      <button type="button" className="product__cartbtn">
+      <button type="button" className="product__cartbtn" onClick={addToCart}>
         Add to cart
       </button>
     </div>

@@ -18,3 +18,17 @@ export const setIsLoggedIn = (result) => {
     payload: result,
   };
 };
+
+export const setCart = (result) => {
+  return {
+    type: "cart",
+    payload: result,
+  };
+};
+
+export const setCount = (result) => {
+  return {
+    type: "count",
+    payload: result,
+  };
+};

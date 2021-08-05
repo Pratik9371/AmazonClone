@@ -44,7 +44,13 @@ const Login = () => {
         .then((res) => {
           if (res.data) {
             dispatch(setIsLoggedIn(true));
-            dispatch(setUser({ name: res.data.name, email: res.data.email }));
+            dispatch(
+              setUser({
+                id: res.data.id,
+                name: res.data.name,
+                email: res.data.email,
+              })
+            );
             history.push("/");
             dispatch(setLoading(false));
           } else {

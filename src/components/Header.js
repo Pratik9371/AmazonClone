@@ -8,13 +8,17 @@ import { useSelector } from "react-redux";
 const Header = () => {
   const user = useSelector((state) => state.user.name);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const count = useSelector((state) => state.count);
 
   return (
     <div className="header">
-      <img
-        className="header__logo"
-        src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
-      />
+      <Link to="/">
+        <img
+          className="header__logo"
+          src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
+        />
+      </Link>
+
       {/* <div className="header__userAddrress">
         <span className="header__optionLineOne">Hello</span>
         <span className="header__optionLineTwo">Select your address</span>
@@ -56,10 +60,12 @@ const Header = () => {
           <span className="header__optionLineOne">Your</span>
           <span className="header__optionLineTwo">Prime</span>
         </div>
-        <div className="header__cart">
-          <Cart />
-          <span>0</span>
-        </div>
+        <Link to="/cart" style={{ color: "white" }}>
+          <div className="header__cart">
+            <Cart />
+            <span>{count}</span>
+          </div>
+        </Link>
       </div>
     </div>
   );
