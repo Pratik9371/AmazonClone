@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const Products = () => {
+const Products = ({ getCart }) => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axios.get("https://localhost:44330/api/products/get").then((res) => {
@@ -29,6 +29,7 @@ const Products = () => {
             price={product.price}
             rating={product.rating}
             imageUrl={product.imageUrl}
+            getCart={getCart}
           />
         </Grid>
       ))}

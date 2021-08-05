@@ -7,7 +7,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../actions";
 
-const Product = ({ id, name, price, rating, imageUrl }) => {
+const Product = ({ id, name, price, rating, imageUrl, getCart }) => {
   const history = useHistory();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const userId = useSelector((state) => state.user.id);
@@ -23,6 +23,7 @@ const Product = ({ id, name, price, rating, imageUrl }) => {
         .post("https://localhost:44330/api/cart/add", payload)
         .then((res) => {
           alert("successfully added to cart");
+          getCart();
         })
         .catch((error) => {
           console.log(error.message);

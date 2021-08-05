@@ -17,6 +17,10 @@ const App = () => {
   const userId = useSelector((state) => state.user.id);
 
   useEffect(() => {
+    getCart();
+  }, [userId]);
+
+  const getCart = () => {
     if (userId) {
       axios
         .get(`https://localhost:44330/api/cart/get?userId=${userId}`)
@@ -26,7 +30,7 @@ const App = () => {
         })
         .catch((error) => console.log(error.message));
     }
-  }, [userId]);
+  };
 
   return (
     <Router>
@@ -35,7 +39,7 @@ const App = () => {
         <Switch>
           <Route path="/" exact>
             <Header />
-            <Home />
+            <Home getCart={getCart} />
           </Route>
           <Route path="/login">
             <Login />
@@ -45,7 +49,7 @@ const App = () => {
           </Route>
           <Route path="/cart">
             <Header />
-            <ShoppingCart />
+            <ShoppingCart getCart={getCart} />
           </Route>
         </Switch>
       </div>
