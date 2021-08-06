@@ -32,3 +32,10 @@ export const setCount = (result) => {
     payload: result,
   };
 };
+
+export const setProducts = (result) => {
+  return {
+    type: "products",
+    payload: result,
+  };
+};

@@ -6,6 +6,7 @@ import { useHistory } from "react-router";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../actions";
+import { Link } from "react-router-dom";
 
 const Product = ({ id, name, price, rating, imageUrl, getCart }) => {
   const history = useHistory();
@@ -37,13 +38,17 @@ const Product = ({ id, name, price, rating, imageUrl, getCart }) => {
     <div className="product">
       <img src={imageUrl} className="product__image" />
       <div className="product__info">
-        <h6 className="product__name">{name}</h6>
+        <Link to={`/productdetails?id=${id}`} style={{ color: "black" }}>
+          <h6 className="product__name">{name}</h6>
+        </Link>
+
         <div className="product_rating">
           <StarIcon fontSize="small" className="product__ratingIcon" />
           <StarIcon fontSize="small" className="product__ratingIcon" />
           <StarIcon fontSize="small" className="product__ratingIcon" />
           <StarIcon fontSize="small" className="product__ratingIcon" />
         </div>
+
         <div className="product__price">
           <span className="font-weight-bold">₹{price}</span>
         </div>

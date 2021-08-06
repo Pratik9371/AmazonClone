@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import "./ShoppingCart.css";
 import { useDispatch } from "react-redux";
-import { setCount, setCart } from "../actions";
 
 const ShoppingCart = ({ getCart }) => {
   const user = useSelector((state) => state.user.id);
@@ -24,8 +23,9 @@ const ShoppingCart = ({ getCart }) => {
   const getTotal = () => {
     let total = 0;
     cart.map((item) => {
-      total += item.product.price;
+      total += item.product.price * item.quantity;
     });
+
     setTotal(total);
   };
 

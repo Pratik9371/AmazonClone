@@ -4,11 +4,29 @@ import Cart from "@material-ui/icons/ShoppingCartOutlined";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setProducts } from "../actions";
 
 const Header = () => {
   const user = useSelector((state) => state.user.name);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const count = useSelector((state) => state.count);
+  const [inputValue, setInputValue] = useState("");
+  const dispatch = useDispatch();
+
+  const handleSearchChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleSearch = () => {
+    axios
+      .post(`https://localhost:44330/api/products/search?value=${inputValue}`)
+      .then((res) => {
+        dispatch(setProducts(res.data));
+      });
+  };
 
   return (
     <div className="header">
@@ -18,29 +36,18 @@ const Header = () => {
           src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
         />
       </Link>
-
-      {/* <div className="header__userAddrress">
-        <span className="header__optionLineOne">Hello</span>
-        <span className="header__optionLineTwo">Select your address</span>
-      </div> */}
       <div className="header__search">
         <input
           className="header__searchInput"
           type="text"
           placeholder="Search any product"
+          onChange={handleSearchChange}
+          value={inputValue}
         />
         <div className="header_searchIcon">
-          <SearchIcon />
+          <SearchIcon onClick={handleSearch} />
         </div>
       </div>
-      {/* <div className="header__search input-group">
-        <input type="text" className="form-control" placeholder="Search" />
-        <div className="input-group-append">
-          <button className="btn header__searchbtn" type="submit">
-            <SearchIcon />
-          </button>
-        </div>
-      </div> */}
       <div className="header__nav">
         <Link to="/login">
           <div className="header__option">

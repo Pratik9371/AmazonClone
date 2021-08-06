@@ -3,12 +3,18 @@ import "./Products.css";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { setProducts } from "../actions";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Products = ({ getCart }) => {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products);
   useEffect(() => {
-    axios.get("https://localhost:44330/api/products/get").then((res) => {
-      setProducts(res.data);
+    axios.get("https://localhost:44330/api/products/getall").then((res) => {
+      // setProducts(res.data);
+      dispatch(setProducts(res.data));
     });
   }, []);
 

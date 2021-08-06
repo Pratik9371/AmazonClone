@@ -51,6 +51,10 @@ const Login = () => {
                 email: res.data.email,
               })
             );
+            // const sessionData = {
+            //   user: res.data.name,
+            // };
+            // window.sessionStorage.setItem("user", JSON.stringify(sessionData));
             history.push("/");
             dispatch(setLoading(false));
           } else {
@@ -125,6 +129,10 @@ const Login = () => {
           </Link>
         </form>
       </div>
+
+      <Link to="/" className="login__goback">
+        Go to home page
+      </Link>
     </div>
   );
 };

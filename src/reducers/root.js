@@ -4,6 +4,7 @@ const initialState = {
   isLoggedIn: false,
   cart: [],
   count: 0,
+  products: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -18,6 +19,8 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, cart: action.payload };
     case "count":
       return { ...state, count: action.payload };
+    case "products":
+      return { ...state, products: action.payload };
     default:
       return state;
   }
