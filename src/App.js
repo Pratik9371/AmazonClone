@@ -52,7 +52,7 @@ const App = () => {
             <Header />
             <ShoppingCart getCart={getCart} />
           </Route>
-          <Route to="/productdetails/:id">
+          <Route path="/productdetails">
             <Header />
             <ProductDetails />
           </Route>
