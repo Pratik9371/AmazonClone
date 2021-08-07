@@ -39,3 +39,10 @@ export const setProducts = (result) => {
     payload: result,
   };
 };
+
+export const setTotal = (result) => {
+  return {
+    type: "total",
+    payload: result,
+  };
+};

@@ -11,6 +11,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setCart, setCount } from "./actions";
 import ProductDetails from "./components/ProductDetails";
+import Checkout from "./components/Checkout";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -54,7 +55,11 @@ const App = () => {
           </Route>
           <Route path="/productdetails">
             <Header />
-            <ProductDetails />
+            <ProductDetails getCart={getCart} />
+          </Route>
+          <Route path="/checkout">
+            <Header />
+            <Checkout />
           </Route>
         </Switch>
       </div>

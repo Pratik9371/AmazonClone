@@ -5,8 +5,9 @@ import "./ProductDetails.css";
 import StarIcon from "@material-ui/icons/Star";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import swal from "sweetalert";
 
-const ProductDetails = () => {
+const ProductDetails = ({ getCart }) => {
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const productId = query.get("id");
@@ -37,7 +38,8 @@ const ProductDetails = () => {
       axios
         .post("https://localhost:44330/api/cart/add", dataObj)
         .then((res) => {
-          alert("successfully added to cart");
+          swal("Successfully added to cart");
+          getCart();
         })
         .catch((error) => {
           console.log(error.message);

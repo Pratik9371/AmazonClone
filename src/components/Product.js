@@ -7,6 +7,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../actions";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
 
 const Product = ({ id, name, price, rating, imageUrl, getCart }) => {
   const history = useHistory();
@@ -23,15 +24,18 @@ const Product = ({ id, name, price, rating, imageUrl, getCart }) => {
       axios
         .post("https://localhost:44330/api/cart/add", payload)
         .then((res) => {
-          alert("successfully added to cart");
+          swal("Successfully added to cart");
           getCart();
         })
         .catch((error) => {
           console.log(error.message);
         });
     } else {
-      alert("You need to login first");
-      history.push("/login");
+      swal({
+        title: "You need to login first",
+      }).then((res) => {
+        history.push("/login");
+      });
     }
   };
   return (
@@ -50,7 +54,7 @@ const Product = ({ id, name, price, rating, imageUrl, getCart }) => {
         </div>
 
         <div className="product__price">
-          <span className="font-weight-bold">₹{price}</span>
+          <span className="font-weight-bold">₹{price.toLocaleString()}</span>
         </div>
       </div>
 

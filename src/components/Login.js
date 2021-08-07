@@ -49,6 +49,7 @@ const Login = () => {
                 id: res.data.id,
                 name: res.data.name,
                 email: res.data.email,
+                address: res.data.address,
               })
             );
             // const sessionData = {

@@ -59,3 +59,15 @@
   justify-content: flex-end;
   margin-right: 20px;
 }
+
+.cart__checkoutbtn {
+  float: right;
+  margin-right: 20px;
+  margin-top: 20px;
+  background-color: #ffa41c;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid;
+  /* border-radius: 5px; */
+  cursor: pointer;
+}

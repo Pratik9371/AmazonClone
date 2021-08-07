@@ -3,21 +3,35 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import "./ShoppingCart.css";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { setTotal } from "../actions";
+import swal from "sweetalert";
 
 const ShoppingCart = ({ getCart }) => {
   const user = useSelector((state) => state.user.id);
   const cart = useSelector((state) => state.cart);
-  const [total, setTotal] = useState(0);
+  // const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
+  const total = useSelector((state) => state.total);
 
   const handleDelete = (id) => {
-    axios
-      .delete(`https://localhost:44330/api/cart/remove?id=${id}`)
-      .then((res) => {
-        alert("Item successfully removed");
-        getCart();
-      })
-      .catch((error) => console.log(error.message));
+    swal({
+      title: "Are you sure you want to delete?",
+      text: "This item will be deleted from your cart",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((res) => {
+      if (res) {
+        axios
+          .delete(`https://localhost:44330/api/cart/remove?id=${id}`)
+          .then((res) => {
+            swal("Item successfully removed");
+            getCart();
+          })
+          .catch((error) => console.log(error.message));
+      }
+    });
   };
 
   const getTotal = () => {
@@ -26,7 +40,8 @@ const ShoppingCart = ({ getCart }) => {
       total += item.product.price * item.quantity;
     });
 
-    setTotal(total);
+    // setTotal(total);
+    dispatch(setTotal(total));
   };
 
   useEffect(() => {
@@ -85,8 +100,11 @@ const ShoppingCart = ({ getCart }) => {
           <div className="cart__total">
             <h5>{`Subtotal (${
               cart.length
-            } items): ${total.toLocaleString()}`}</h5>
+            } items): ₹${total.toLocaleString()}`}</h5>
           </div>
+          <Link to="checkout">
+            <button className="cart__checkoutbtn">Proceed to checkout</button>
+          </Link>
         </div>
       )}
     </div>
